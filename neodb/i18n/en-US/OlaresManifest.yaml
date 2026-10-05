@@ -2,6 +2,9 @@ metadata:
   title: NeoDB
   description: Open source Fediverse cultural tracking service to mark, review, and discover books, movies, music, and games.
 spec:
+  upgradeDescription: |
+    - Fix Redis authentication failure in database migration and background workers.
+    - Fix Nginx container permission issue by granting root execution privilege for nginx config and temp directories.
   fullDescription: |
     **Mark the things you love.**
 

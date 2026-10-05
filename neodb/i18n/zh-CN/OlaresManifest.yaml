@@ -2,6 +2,9 @@ metadata:
   title: NeoDB
   description: 面向联邦宇宙（Fediverse）的开源书影音记录与文化发现平台。
 spec:
+  upgradeDescription: |
+    - 修复数据库迁移和后台任务中的 Redis 密码鉴权失败问题。
+    - 修复 Nginx 容器权限问题，添加 root 运行权限以正常写入配置文件及创建临时目录。
   fullDescription: |
     **记录你所爱的一切。**
 
