@@ -54,7 +54,9 @@ jobs:
           echo "upstream=${UPSTREAM}" >> "$GITHUB_OUTPUT"
           echo "mcp=${MCP}"           >> "$GITHUB_OUTPUT"
           echo "tag=${TAG}"           >> "$GITHUB_OUTPUT"
-          echo "image=ghcr.io/${{ github.repository_owner }}/mindwtr-merged" >> "$GITHUB_OUTPUT"
+          # Docker 的仓库名必须全小写，github.repository_owner 会保留 "Inverstar" 的大小写
+          OWNER=$(printf '%s' "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "image=ghcr.io/${OWNER}/mindwtr-merged" >> "$GITHUB_OUTPUT"
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -78,7 +80,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| 字段 | 值 |" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|" >> $GITHUB_STEP_SUMMARY
-          echo "| 镜像 | \`ghcr.io/${{ github.repository_owner }}/mindwtr-merged:${{ steps.vars.outputs.tag }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| 镜像 | \`${{ steps.vars.outputs.image }}:${{ steps.vars.outputs.tag }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| 镜像 tag | ${{ steps.vars.outputs.tag }} |" >> $GITHUB_STEP_SUMMARY
           echo "| 上游版本 | ${{ steps.vars.outputs.upstream }} |" >> $GITHUB_STEP_SUMMARY
           echo "| MCP 版本 | ${{ steps.vars.outputs.mcp }} |" >> $GITHUB_STEP_SUMMARY
