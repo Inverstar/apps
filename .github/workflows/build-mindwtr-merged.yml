@@ -17,11 +17,14 @@ on:
         required: true
         default: '1.3.7-r2'
 
-  # 当 merged 相关文件有变动时自动触发
-  push:
-    branches: [main, feature/mindwtr]
-    paths:
-      - 'mindwtr-beta/mindwtr-merged/**'
+  # 只保留手动触发：多架构构建要跑 8 分钟左右，每次改构建文件都自动跑一遍太吵，
+  # 而且 tag 是固定的，重复构建只会覆盖同一个 tag（IfNotPresent 也不会重新拉取）。
+  # 需要自动触发时把下面这段放回去即可：
+  #
+  # push:
+  #   branches: [main, feature/mindwtr]
+  #   paths:
+  #     - 'mindwtr-beta/mindwtr-merged/**'
 
 jobs:
   build-and-push:

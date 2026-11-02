@@ -69,9 +69,12 @@ RUN mkdir -p /opt/mindwtr-mcp \
 # --- 统一入口与启动脚本 -------------------------------------------------------
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY start.sh /usr/local/bin/mindwtr-merged-start
+# 注意：最终基底是 nginx（alpine），没有 bun 用户——上游 cloud 镜像的 /etc/passwd
+# 没有一起 COPY 过来。所以这里只能用数字 uid/gid（bun = 1000:1000），
+# 写 `chown bun:bun` 会在构建期报 "unknown user" 直接失败。
 RUN chmod +x /usr/local/bin/mindwtr-merged-start \
  && mkdir -p /app/cloud_data \
- && chown bun:bun /app/cloud_data
+ && chown 1000:1000 /app/cloud_data
 
 # 默认值全部可以被运行时环境变量覆盖（密钥只走环境变量，不进镜像层）
 ENV MINDWTR_CLOUD_DATA_DIR=/app/cloud_data \
