@@ -21,7 +21,7 @@ on:
   push:
     branches: [main, feature/mindwtr]
     paths:
-      - 'mindwtr/mindwtr-beta/mindwtr-merged/**'
+      - 'mindwtr-beta/mindwtr-merged/**'
 
 jobs:
   build-and-push:
@@ -59,7 +59,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: mindwtr/mindwtr-beta/mindwtr-merged
+          context: mindwtr-beta/mindwtr-merged
           platforms: linux/amd64,linux/arm64
           push: true
           build-args: |

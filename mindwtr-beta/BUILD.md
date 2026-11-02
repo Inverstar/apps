@@ -18,7 +18,7 @@
 ## 一键构建推送（推荐）
 
 ```bash
-cd mindwtr/mindwtr-beta/mindwtr-merged
+cd mindwtr-beta/mindwtr-merged
 
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
